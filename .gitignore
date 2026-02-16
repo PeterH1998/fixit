@@ -1,0 +1,15 @@
+# Node
+**/node_modules/
+**/dist/
+**/.cache/
+
+# Env (never commit secrets)
+**/.env
+
+# Logs
+*.log
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
