@@ -99,7 +99,7 @@ const createBooking = async (req, res, next) => {
       startAt: startDate,
       endAt: endDate,
       status: "confirmed",
-      userId: null,
+      userId: req.user.id,
     });
 
     return res.status(201).json({ ok: true, data });
