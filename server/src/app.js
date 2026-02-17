@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const healthRoutes = require("./routes/health.routes");
+const devicesRoutes = require("./routes/devices.routes");
+const repairsRoutes = require("./routes/repairs.routes");
+const bookingsRoutes = require("./routes/bookings.routes");
 const requestLogger = require("./middleware/requestLogger");
 const errorHandler = require("./middleware/errorHandler");
 const notFound = require("./middleware/notFound");
@@ -22,6 +25,9 @@ app.use(requestLogger);
 attachDb(app);
 
 app.use("/api", healthRoutes);
+app.use("/api", devicesRoutes);
+app.use("/api", repairsRoutes);
+app.use("/api", bookingsRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

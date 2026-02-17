@@ -18,6 +18,9 @@ const initModels = (sequelize) => {
   User.hasMany(Booking, { foreignKey: "userId" });
   Booking.belongsTo(User, { foreignKey: "userId" });
 
+  Device.hasMany(Booking, { foreignKey: "deviceId" });
+  Booking.belongsTo(Device, { foreignKey: "deviceId" });
+
   return {
     User,
     Device,

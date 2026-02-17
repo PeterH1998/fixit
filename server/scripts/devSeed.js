@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const { Op } = require("sequelize");
 const { sequelize } = require("../src/config/db");
 
 // IMPORTANT:
@@ -136,10 +137,11 @@ async function main() {
 
   const Device = models.Device || (models.models && models.models.Device);
   const RepairService = models.RepairService || (models.models && models.models.RepairService);
+  const Booking = models.Booking || (models.models && models.models.Booking);
 
-  if (!Device || !RepairService) {
+  if (!Device || !RepairService || !Booking) {
     throw new Error(
-      "Could not locate Device/RepairService models from server/src/db/models/index.js. " +
+      "Could not locate Device/RepairService/Booking models from server/src/db/models/index.js. " +
       "Please check that index.js exports them."
     );
   }
@@ -147,7 +149,14 @@ async function main() {
   // Now that models exist on sequelize, sync will create tables
   await sequelize.sync({ alter: true });
 
-  const summary = { devicesCreated: 0, devicesExisting: 0, repairsCreated: 0, repairsExisting: 0 };
+  const summary = {
+    devicesCreated: 0,
+    devicesExisting: 0,
+    repairsCreated: 0,
+    repairsExisting: 0,
+    bookingsCreated: 0,
+    bookingsExisting: 0,
+  };
 
   for (const d of DATA) {
     const [deviceRow, created] = await Device.findOrCreate({
@@ -187,6 +196,36 @@ async function main() {
 
       if (rCreated) summary.repairsCreated++;
       else summary.repairsExisting++;
+    }
+  }
+
+  const sampleRepair = await RepairService.findOne({ order: [["createdAt", "ASC"]] });
+  if (sampleRepair) {
+    const sampleStart = new Date(Date.UTC(2026, 1, 20, 10, 0, 0, 0));
+    const sampleEnd = new Date(
+      sampleStart.getTime() + sampleRepair.durationMinutes * 60 * 1000
+    );
+
+    const existing = await Booking.findOne({
+      where: {
+        repairServiceId: sampleRepair.id,
+        startAt: { [Op.lt]: sampleEnd },
+        endAt: { [Op.gt]: sampleStart },
+      },
+    });
+
+    if (existing) {
+      summary.bookingsExisting++;
+    } else {
+      await Booking.create({
+        repairServiceId: sampleRepair.id,
+        deviceId: sampleRepair.deviceId,
+        startAt: sampleStart,
+        endAt: sampleEnd,
+        status: "confirmed",
+        userId: null,
+      });
+      summary.bookingsCreated++;
     }
   }
 

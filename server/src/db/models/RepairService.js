@@ -26,6 +26,11 @@ const defineRepairService = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      currency: {
+        type: DataTypes.STRING(3),
+        allowNull: false,
+        defaultValue: "EUR",
+      },
       durationMinutes: {
         type: DataTypes.INTEGER,
         allowNull: false,
