@@ -4,6 +4,7 @@ const healthRoutes = require("./routes/health.routes");
 const devicesRoutes = require("./routes/devices.routes");
 const repairsRoutes = require("./routes/repairs.routes");
 const bookingsRoutes = require("./routes/bookings.routes");
+const catalogRoutes = require("./routes/catalog.routes");
 const authRoutes = require("./routes/auth.routes");
 const requestLogger = require("./middleware/requestLogger");
 const errorHandler = require("./middleware/errorHandler");
@@ -27,6 +28,7 @@ attachDb(app);
 
 app.use("/api", healthRoutes);
 app.use("/api", authRoutes);
+app.use("/api", catalogRoutes);
 app.use("/api", devicesRoutes);
 app.use("/api", repairsRoutes);
 app.use("/api", bookingsRoutes);

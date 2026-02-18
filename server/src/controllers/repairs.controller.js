@@ -37,4 +37,35 @@ const listRepairs = async (req, res) => {
   }
 };
 
-module.exports = { listRepairs };
+const getRepairById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!UUID_RE.test(id)) {
+      return res.status(400).json({
+        ok: false,
+        error: { message: `id must be a valid UUID (got: ${id})` }
+      });
+    }
+
+    const repair = await RepairService.findByPk(id, {
+      include: [{ model: Device }],
+    });
+
+    if (!repair) {
+      return res.status(404).json({
+        ok: false,
+        error: { message: "repair service not found" }
+      });
+    }
+
+    return res.json({ ok: true, data: repair });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      ok: false,
+      error: { message: err.message }
+    });
+  }
+};
+
+module.exports = { listRepairs, getRepairById };
