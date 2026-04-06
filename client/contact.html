@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FixMyPhone | Contact Us</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#080b0a',
+                            card: '#121615',
+                            cardHover: '#1a1f1d',
+                            green: '#1ed760',
+                            greenDark: '#16a34a',
+                            textMuted: '#9ca3af',
+                            border: '#2a302d'
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #080b0a;
+            color: #ffffff;
+        }
+        .bg-grid {
+            background-size: 50px 50px;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans relative">
+
+    <div class="fixed inset-0 pointer-events-none bg-grid-pattern bg-grid z-0"></div>
+
+    <header class="relative z-50 w-full border-b border-white/5 bg-brand-dark/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-brand-green rounded-md flex items-center justify-center">
+                    <svg class="w-5 h-5 text-brand-dark" fill="currentColor" viewBox="0 0 24 24"><path d="M17 2H7C5.895 2 5 2.895 5 4v16c0 1.105.895 2 2 2h10c1.105 2 2-2V4c0-1.105-.895-2-2-2zm-5 18c-.828 0-1.5-.672-1.5-1.5S11.172 17 12 17s1.5.672 1.5 1.5S12.828 20 12 20zm4.5-4H6.5V4h10v12z"/></svg>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-white">FixMyPhone</span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-brand-textMuted">
+                <a href="/#services" class="hover:text-white transition-colors">Services</a>
+                <a href="/#why-us" class="hover:text-white transition-colors">Why Us</a>
+                <a href="/contact.html" class="hover:text-white transition-colors">Contact</a>
+            </nav>
+
+            <a href="/#book" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-brand-dark bg-brand-green rounded-full shadow-[0_0_20px_rgba(30,215,96,0.3)] hover:shadow-[0_0_25px_rgba(30,215,96,0.5)] hover:bg-[#1fdf64] transition-all">
+                Book Repair
+            </a>
+
+            <button class="md:hidden text-white focus:outline-none" aria-label="Open navigation">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">Contact Us</h1>
+            <p class="text-lg md:text-xl text-brand-textMuted">The public MVP launch uses the homepage booking flow as the only supported customer intake path.</p>
+        </section>
+
+        <section class="px-6 pb-24">
+            <div class="max-w-[600px] mx-auto bg-brand-card border border-brand-border rounded-2xl p-8 md:p-10">
+                <div class="rounded-xl border border-brand-green/30 bg-brand-green/5 px-5 py-4 text-sm text-brand-textMuted">
+                    This page is not part of the public MVP booking flow. For launch, deploy the homepage booking flow in <code>index.html</code> and route customer enquiries through the booking form.
+                </div>
+                <div class="mt-6">
+                    <a href="/#book"
+                       class="inline-flex w-full items-center justify-center rounded-xl bg-brand-green px-5 py-3.5 font-semibold text-brand-dark transition-colors hover:bg-[#1fdf64]">
+                        Return to Booking
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/5 bg-brand-dark/95 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 py-8 flex items-center justify-center">
+            <div class="text-sm text-brand-textMuted">
+                2026 FixMyPhone
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
