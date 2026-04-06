@@ -1,10 +1,14 @@
 const path = require("path");
 const { Umzug, SequelizeStorage } = require("umzug");
 
+const migrationGlob = path
+  .resolve(__dirname, "migrations", "*.js")
+  .replace(/\\/g, "/");
+
 const createUmzug = (sequelize) =>
   new Umzug({
     migrations: {
-      glob: path.join(__dirname, "migrations", "*.js"),
+      glob: migrationGlob,
     },
     context: sequelize.getQueryInterface(),
     storage: new SequelizeStorage({ sequelize }),
@@ -13,7 +17,7 @@ const createUmzug = (sequelize) =>
 
 const runMigrations = async (sequelize) => {
   const umzug = createUmzug(sequelize);
-  await umzug.up();
+  return umzug.up();
 };
 
-module.exports = { runMigrations };
+module.exports = { createUmzug, runMigrations };

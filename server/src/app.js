@@ -12,14 +12,30 @@ const notFound = require("./middleware/notFound");
 const { attachDb } = require("./db");
 
 const app = express();
-const clientOrigin = process.env.CLIENT_ORIGIN || "http://localhost:5173";
+const defaultOrigins = ["http://localhost:5173", "http://127.0.0.1:5173"];
+const configuredOrigins = (process.env.CLIENT_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const allowedOrigins = new Set(
+  configuredOrigins.length ? configuredOrigins : defaultOrigins
+);
 const corsOptions = {
-  origin: clientOrigin,
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.has(origin)) {
+      return callback(null, true);
+    }
+
+    const err = new Error("CORS origin not allowed");
+    err.status = 403;
+    return callback(err);
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(cors(corsOptions));
 app.options(/.*/, cors(corsOptions));

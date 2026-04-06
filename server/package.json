@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js",
+    "db:migrate": "node scripts/migrate.js",
+    "db:seed:catalog": "node scripts/seedCatalog.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "db:seed": "node scripts/devSeed.js"
   },
   "keywords": [],
